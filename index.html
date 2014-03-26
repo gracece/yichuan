@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 canvas demo</title>
+  <style type="text/css" media="all">
+    #myCanvas
+    {
+      background-image:url('0demo.png');
+    }
+  </style>
+</head>
+<body>
+  <button id="clear">clear</button>
+  <canvas id="myCanvas"  width="900" height="950">
+  </canvas>
+
+  <script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+  <script src="js/jcanvas.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    var timestamp = 0;
+var xxa;
+$('#clear').click(function(){
+  $.get("receive.php?clear=1",function(){
+    location.reload();
+  });
+});
+    function getLine(){
+      $.getJSON("show.php?t="+timestamp,function(data){
+
+        $.each(data,function(i,ONE){
+          timestamp = ONE.timestamp;
+          item = ONE.line;
+        console.log(item);
+        $('canvas').drawLine({
+        strokeStyle: 'green',
+        strokeWidth: 10,
+        rounded: true,
+        x1: item.x1, y1: item.y1,
+        x2: item.x2, y2: item.y2,
+      });
+      });
+      });
+    setTimeout("getLine()",500);
+    }
+   getLine();
+  </script>
+</body>
+</html>
