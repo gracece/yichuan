@@ -6,7 +6,7 @@
   <style type="text/css" media="all">
     #myCanvas
     {
-      background-image:url('upload/0demo.png');
+      background-image:url('{{ static_url("upload/0demo.png")}}');
     }
   </style>
 </head>
@@ -16,17 +16,17 @@
   </canvas>
 
   <script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
-  <script src="js/jcanvas.js" type="text/javascript"></script>
+  <script src=" {{ static_url("js/jcanvas.js ")}} " type="text/javascript"></script>
   <script type="text/javascript">
     var timestamp = 0;
 var xxa;
 $('#clear').click(function(){
-  $.get("options.php?clear=1",function(){
+  $.get("/clear",function(){
     location.reload();
   });
 });
     function getLine(){
-      $.getJSON("show.php?t="+timestamp,function(data){
+      $.getJSON("draw?t="+timestamp,function(data){
 
         $.each(data,function(i,ONE){
           timestamp = ONE.timestamp;
