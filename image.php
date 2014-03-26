@@ -2,11 +2,15 @@
 $pdf_file = 'demo.pdf';
 $save_to  = 'demo.png';
 
-$img = new Imagick();
+$img = new Imagick($pdf_file);
 $img->setResolution(100,100);
-$img->readImage("{$pdf_file}[2]");
+$pageNumber = $img->getNumberImages();
+for ($i=0; $i < $pageNumber; $i++)
+{
+    $img->readImage("{$pdf_file}[".$i."]");
+    $img->setImageFormat('png');
+    $img->flattenImages();
+    $img->writeImage($i.$save_to);
+}
 
-$img->setImageFormat('png');
-$img->flattenImages();
-$img->writeImage($save_to);
 

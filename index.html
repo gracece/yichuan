@@ -6,7 +6,7 @@
   <style type="text/css" media="all">
     #myCanvas
     {
-      background-image:url('0demo.png');
+      background-image:url('upload/0demo.png');
     }
   </style>
 </head>
@@ -21,7 +21,7 @@
     var timestamp = 0;
 var xxa;
 $('#clear').click(function(){
-  $.get("receive.php?clear=1",function(){
+  $.get("options.php?clear=1",function(){
     location.reload();
   });
 });
