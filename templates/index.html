@@ -4,14 +4,21 @@
   <meta charset="UTF-8">
   <title>HTML5 canvas demo</title>
   <style type="text/css" media="all">
+    body{
+      width:960px;
+      margin: 0 auto auto ;
+    }
     #myCanvas
     {
       background-image:url('{{ static_url("upload/0demo.png")}}');
+      background-repeat:no-repeat;
     }
   </style>
 </head>
 <body>
+  <h2>
   <button id="clear">clear</button>
+  </h2>
   <canvas id="myCanvas"  width="900" height="950">
   </canvas>
 
