@@ -1,5 +1,5 @@
 <?php
-$pdf_file = 'demo.pdf';
+$pdf_file = './static/upload/demo.pdf';
 $save_to  = 'demo.png';
 
 $img = new Imagick($pdf_file);

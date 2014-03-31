@@ -34,11 +34,12 @@ class IndexHandler(tornado.web.RequestHandler):
 class DrawHandler(tornado.web.RequestHandler):
     def get(self):
         try:
-            timestamp = self.get_argument('t')
+            timestamp = int(self.get_argument('t'))
         except :
             timestamp = 0
         coll = self.application.db.draw
-        drawLine = coll.find()
+        drawLine = coll.find({"timestamp":{"$gt":timestamp}}).limit(100).sort("timestamp")
+        print drawLine.count()
         data = []
         for line in drawLine:
             print line
@@ -50,7 +51,6 @@ class clear(tornado.web.RequestHandler):
     def get(self):
         coll = self.application.db.draw
         coll.remove()
-
 
 
 if __name__ == "__main__":
