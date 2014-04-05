@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="row">
+        <div class="col-md-1">
+          <button id="clear" class="btn">clear</button>
+        </div>
+        <div class="col-md-9">
+          <canvas id="myCanvas" style="
+            background-image:url('/static/upload/{{file_id}}/p-0.png'); 
+            "
+            width="900" height="950"> </canvas>
+        </div>
+      </div>
+{% end %}
+
+
+{% block js %}
+
+<script type="text/javascript">
+  var timestamp=0;
+      $('#clear').click(function(){
+        $.get("/clear",function(){
+          location.reload();
+        });
+      });
+      getLine({{file_id}});
+    </script>
+
+{% end %}
+

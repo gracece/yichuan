@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div class="row">
+        <div class="col-md-6">
+          <form action="/upload" method="post" enctype="multipart/form-data" >
+            <input  type="file" name="file" accept="application/pdf," />
+            <input type="submit" value="上传" class="btn btn-primary" />
+          </form>
+        </div>
+      </div>
+
+{% end %}
+
+
+{% block js %}
+
+
+{% end %}
+

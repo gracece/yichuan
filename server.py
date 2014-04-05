@@ -18,7 +18,7 @@ class MyRequestHandler(SRH):
             timestamp = int(time.time())
             try:
                 data = self.rfile.readline().strip().split(',')
-                coll = db.timestamp
+                coll = db.AIid
                 new_id = coll.find_and_modify(update={"$inc":{"timestamp":1}}, new=True).get("timestamp")
                 coll  = db.draw
                 if data[0]=='d':
@@ -27,7 +27,6 @@ class MyRequestHandler(SRH):
                 elif data[0]=='j':
                     draw_line = {'timestamp':new_id,'type':'jump','page':int(data[1])}
                 coll.insert(draw_line)
-                print timestamp,self.client_address,draw_line
             except :
                 print "break"
                 traceback.print_exc()
