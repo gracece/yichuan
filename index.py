@@ -7,6 +7,7 @@ import tornado.web
 import tornado.escape
 import os.path
 import os
+import time
 import pymongo
 from wand.image import Image
 from wand.color import Color
@@ -52,20 +53,40 @@ class ShowHandler(tornado.web.RequestHandler):
         self.render("show.html",file_id=show_id,fileinfo=fileinfo)
 
 class DrawHandler(tornado.web.RequestHandler):
+    @tornado.web.asynchronous
     def get(self):
+        self.get_data(callback=self.on_finish)
+
+    def get_data(self,callback):
+        if self.request.connection.stream.closed():
+            return
         try:
             timestamp = int(self.get_argument('t'))
             file_id = int(self.get_argument('f'))
         except :
             timestamp = 0
+        data = self.get_new_draw(timestamp,file_id)
+        if data :
+            callback(data)
+        else:
+            tornado.ioloop.IOLoop.instance().add_timeout(
+                time.time()+2,
+                lambda:callback(self.get_new_draw(timestamp,file_id))
+                )
+
+
+    def on_finish(self,data):
+        self.write(tornado.escape.json_encode(data))
+        self.finish()
+
+    def get_new_draw(self,timestamp,file_id):
         coll = self.application.db.draw
         drawLine = coll.find({"timestamp":{"$gt":timestamp},"file_id":file_id}).limit(100).sort("timestamp")
         data = []
         for line in drawLine:
-            print line
             del line['_id']
             data.append(line)
-        self.write(tornado.escape.json_encode(data))
+        return data
 
 class list(tornado.web.RequestHandler):
     def get(self):
@@ -100,12 +121,11 @@ class upload(tornado.web.RequestHandler):
 
         with Image(filename=filepath,resolution=90) as img:
             img.format="png"
-            img.background_color = Color('white')
             img.save(filename=os.path.join(upload_path,'p.png'))
             coll = self.application.db.file
             newfile = {'filename':filename,'file_id':new_id,'width':img.width,'height':img.height}
             coll.insert(newfile)
-        self.write(' <a href="/show/'+newname+'">查看</a> ')
+        self.write(u'<a href="/show/'+newname+u'">查看</a>')
 
 
 if __name__ == "__main__":

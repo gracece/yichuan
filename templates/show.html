@@ -26,12 +26,13 @@
 
 <script type="text/javascript">
   var timestamp=0;
+  var file_id = {{file_id}}
       $('#clear').click(function(){
         $.get("/clear",function(){
           location.reload();
         });
       });
-      getLine({{file_id}});
+      updater.poll();
     </script>
 
 {% end %}
