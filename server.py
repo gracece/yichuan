@@ -22,10 +22,10 @@ class MyRequestHandler(SRH):
                 new_id = coll.find_and_modify(update={"$inc":{"timestamp":1}}, new=True).get("timestamp")
                 coll  = db.draw
                 if data[0]=='d':
-                    draw_line = {'timestamp':new_id,'type':'draw','line':{'x1':int(data[1]),'y1':int(data[2]),\
+                    draw_line = {'timestamp':new_id,'type':'draw','file_id':int(data[5]),'line':{'x1':int(data[1]),'y1':int(data[2]),\
                         'x2':int(data[3]),'y2':int(data[4])}}
                 elif data[0]=='j':
-                    draw_line = {'timestamp':new_id,'type':'jump','page':int(data[1])}
+                    draw_line = {'timestamp':new_id,'type':'jump','file_id':int(data[2]),'page':int(data[1])}
                 coll.insert(draw_line)
             except :
                 print "break"

@@ -18,7 +18,8 @@ function getLine(id){
             }
             else if(type='jump')
               {
-                page = ONE.page-1;
+                page = ONE.page;
+                $('#page').html(page);
                 url = "/static/upload/"+file_id+"/p-"+page+".png";
                 console.log("page"+url);
                 $('#myCanvas').css("background-image",'url('+url+')')

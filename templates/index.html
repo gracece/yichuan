@@ -5,7 +5,14 @@
   <h2>
  你好，这里是yichuan 
   </h2>
-  <a href="/show/2">DEMO</a>
+  <a href="/upload" class="btn btn-primary">立即上传！</a>
+  <ul>
+    {% for file in filelist %}
+    <li>
+      <a href="/show/{{file['file_id']}}"> {{file['filename']}} </a>
+    </li>
+    {%end%}
+  </ul>
 
 </div>
 
