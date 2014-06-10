@@ -70,10 +70,9 @@ class DrawHandler(tornado.web.RequestHandler):
             callback(data)
         else:
             tornado.ioloop.IOLoop.instance().add_timeout(
-                time.time()+2,
-                lambda:callback(self.get_new_draw(timestamp,file_id))
+                time.time()+0.5,
+                lambda:callback(data = self.get_new_draw(timestamp,file_id))
                 )
-
 
     def on_finish(self,data):
         self.write(tornado.escape.json_encode(data))
@@ -123,9 +122,9 @@ class upload(tornado.web.RequestHandler):
             img.format="png"
             img.save(filename=os.path.join(upload_path,'p.png'))
             coll = self.application.db.file
-            newfile = {'filename':filename,'file_id':new_id,'width':img.width,'height':img.height}
+            newfile = {'filename':filename,'file_id':new_id,'width':img.width,'height':img.height,'count':len(img.sequence)}
             coll.insert(newfile)
-        self.write(u'<a href="/show/'+newname+u'">查看</a>')
+        self.write(u'<a href="/show/'+new_id+u'">查看</a>')
 
 
 if __name__ == "__main__":

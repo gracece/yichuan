@@ -1,3 +1,36 @@
 #myCanvas {
   background-repeat:no-repeat;
-  }
+  transition:background-image 1s ease-out;
+}
+html,body{
+  height:100%;
+}
+
+.navbar-nav>li>a {
+color: #FFF !important ;
+}
+.navbar-inverse .navbar-brand {
+color: #FFF;
+}
+#page{
+position: fixed;
+right: 10px;
+bottom: 10px;
+}
+#loading{
+z-index: 1010;
+position: fixed;
+left: 50%;
+top: 50%;
+margin-left: -150px;
+margin-top: -150px;
+display:none;
+}
+#qrcode{
+  position: fixed;
+  left: 10px;
+  bottom: 10px;
+  width: 100px;
+}
+
+

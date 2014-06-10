@@ -2,13 +2,15 @@
 {% block body %}
 
 <div class="row">
-        <div class="col-md-6">
-          <form action="/upload" method="post" enctype="multipart/form-data" >
-            <input  type="file" name="file" accept="application/pdf," />
-            <input type="submit" value="上传" class="btn btn-primary" />
-          </form>
-        </div>
-      </div>
+  <div class="alert alert-info">使用提示：上传一个PDF用于展示</div>
+  
+<form role="form" action="/upload" method="post" enctype="multipart/form-data"  >
+  <div class="form-group">
+    <label for="exampleInputFile">选择文件</label>
+      <input  type="file" name="file" accept="application/pdf" required />
+  </div>
+  <button type="submit" class="btn btn-primary ">上传</button>
+</form>
 
 {% end %}
 

@@ -6,19 +6,27 @@
 {% block body %}
 
 <div class="row">
-        <div class="col-md-1">
-          <button id="clear" class="btn">clear</button>
-                  <span class="btn" id="page">0</span>
-        </div>
-        <div class="col-md-9">
-          <canvas id="myCanvas" style="
-            background-image:url('/static/upload/{{file_id}}/p-0.png'); 
-            box-shadow: 0px 0px 25px #888888;
-            margin:10px auto auto;
-            "
-            width="{{fileinfo['width']}}" height="{{fileinfo['height']}}"> </canvas>
-        </div>
-      </div>
+  <div class="col-md-1">
+    <button id="clear" class="btn">清除 
+      <span class="glyphicon glyphicon-flash"></span>
+    </button>
+    <hr>
+    <button onclick="$('#myCanvas').fullScreen(true)" class="btn">全屏
+      <span class="glyphicon glyphicon-fullscreen"></span></button> 
+    <img id='qrcode'
+    src="https://chart.googleapis.com/chart?cht=qr&amp;chs=300x300&amp;choe=UTF-8&amp;chld=L|1&amp;chl=http://sysucs.org:8080/show/{{file_id}}">
+    <span class="btn btn-info" id="page">0</span>
+  </div>
+  <div class="col-md-10">
+    <img src="http://sysucs.org:8080/static/pic/loading.gif" id='loading' alt="">
+    <canvas id="myCanvas" style="
+      background-image:url('/static/upload/{{file_id}}/p-0.png'); 
+      box-shadow: 0px 0px 25px #888888;
+      margin:10px auto auto;
+      "
+      width="{{fileinfo['width']}}" height="{{fileinfo['height']}}"> </canvas>
+  </div>
+</div>
 {% end %}
 
 
@@ -27,13 +35,13 @@
 <script type="text/javascript">
   var timestamp=0;
   var file_id = {{file_id}}
-      $('#clear').click(function(){
-        $.get("/clear",function(){
-          location.reload();
-        });
-      });
-      updater.poll();
-    </script>
+  $('#clear').click(function(){
+    $.get("/clear",function(){
+      location.reload();
+    });
+  });
+  updater.poll();
+</script>
 
 {% end %}
 

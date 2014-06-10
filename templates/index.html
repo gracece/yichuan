@@ -1,20 +1,29 @@
 {% extends "base.html" %}
 {% block body %}
-
 <div class="row">
-  <h2>
- 你好，这里是yichuan 
-  </h2>
-  <a href="/upload" class="btn btn-primary">立即上传！</a>
-  <ul>
-    {% for file in filelist %}
-    <li>
-      <a href="/show/{{file['file_id']}}"> {{file['filename']}} </a>
-    </li>
-    {%end%}
-  </ul>
+  <div class="jumbotron">
+    <h1>欢迎使用易传</h1>
+    <p>最方便的文件传输展示工具</p>
+    <p><a class="btn btn-primary btn-lg" href='/upload' role="button">立即上传使用</a></p>
+  </div>
 
-</div>
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">历史文件列表</div>
+    <div class="panel-body">
+      <p>下面为历史文件列表，点击可查看</p>
+    </div>
+    <ul class="list-group">
+      {% for file in filelist %}
+      <li class="list-group-item">
+        <span class="badge"> {{ file['count']}} </span>
+        <a href="/show/{{file['file_id']}}"> {{file['filename']}} </a> 
+      </li> 
+      {%end%}
+    </ul>
 
 
-{% end %}
+  </div>
+
+
+  {% end %}
